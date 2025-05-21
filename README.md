@@ -6,7 +6,11 @@ Charlotte Kim and Tommy Tran
 
 2) Would you use an end to end test to check if a function is returning the correct output? (yes/no)
 
-   No. I would not use an end to end test to check if a function is returning the correct output because these tests are meant to test the flow of the file. If we want to check if a function is returning the correct output, you would use a unit test. 
+   No. I would not use an end to end test to check if a function is returning the correct output because these tests are meant to test the flow of the file. If we want to check if a function is returning the correct output, you would use a unit test.
+
+3) What is the difference between navigation and snapshot mode?
+
+4) Name three things we could do to improve the CSE 110 shop site based on the Lighthouse results.
 
 
 
