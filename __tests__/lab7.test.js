@@ -195,6 +195,24 @@ describe('Basic user flow for Website', () => {
   it('Checking number of items in cart on screen after reload', async () => {
     console.log('Checking number of items in cart on screen after reload...');
 
+    await page.reload();
+    const allProducts = await page.$$('product-item');
+
+    for (let i = 0; i < allProducts.length; i++) {
+      const shadowRoot = await allProducts[i].getProperty('shadowRoot');
+      const button = await shadowRoot.$('button');
+      const innerText = await button.getProperty('innerText');
+      const buttonText = await innerText.jsonValue();
+
+      expect(buttonText).toBe('Add to Cart');
+    }
+
+    const count = await page.$('#cart-count');
+    const countText = await (await count.getProperty('innerText')).jsonValue();
+
+    
+    expect(countText).toBe('0');
+
     /**
      **** TODO - STEP 7 **** 
      * Reload the page once more, then go through each <product-item> to make sure that it has remembered nothing
