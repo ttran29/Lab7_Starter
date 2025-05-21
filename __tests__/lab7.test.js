@@ -92,6 +92,17 @@ describe('Basic user flow for Website', () => {
   it('Checking number of items in cart on screen', async () => {
     console.log('Checking number of items in cart on screen...');
 
+    await page.evaluate(() => {
+      const allProducts = document.querySelectorAll('product-item');
+      allProducts.forEach(item => {
+        const shadowRoot = item.shadowRoot;
+        const button = shadowRoot.querySelector('button');
+        if (button.innerText === 'Add to Cart') {
+          button.click();
+        }
+      });
+    });
+
     /**
      **** TODO - STEP 3 **** 
      * Query select all of the <product-item> elements, then for every single product element
@@ -100,15 +111,9 @@ describe('Basic user flow for Website', () => {
      * Remember to remove the .skip from this it once you are finished writing this test.
      */
 
-    await page.evaluate(() => 
-      document.querySelectorAll('product-item').forEach(item => 
-      item.shadowRoot.querySelector('button').click()
-    )
-    );
     const cartCount = await page.$eval('#cart-count', el => el.innerText);
-    
     expect(cartCount).toBe('20');
-
+  
   }, 10000);
 
   // Check to make sure that after you reload the page it remembers all of the items in your cart
@@ -164,18 +169,30 @@ describe('Basic user flow for Website', () => {
   it('Checking number of items in cart on screen after removing from cart', async () => {
     console.log('Checking number of items in cart on screen...');
 
-    const allProducts = await page.$$('product-item');
 
-    for (let i = 0; i < allProducts.length; i++) {
-      const shadowRoot = await allProducts[i].getProperty('shadowRoot');
-      const button = await shadowRoot.$('button');
-      const innerText = await button.getProperty('innerText');
-      const buttonText = await innerText.jsonValue();
-      if (buttonText === 'Remove from Cart') {
-        await button.click();
-      }
-    }
+    await page.evaluate(() => {
+      const allProducts = document.querySelectorAll('product-item');
+      allProducts.forEach(item => {
+        const shadowRoot = item.shadowRoot;
+        const button = shadowRoot.querySelector('button');
+        if (button.innerText === 'Remove from Cart') {
+          button.click();
+        }
+      });
+    });
 
+
+    // for (let i = 0; i < allProducts.length; i++) {
+    //   const shadowRoot = await allProducts[i].getProperty('shadowRoot');
+    //   const button = await shadowRoot.$('button');
+    //   const innerText = await button.getProperty('innerText');
+    //   const buttonText = await innerText.jsonValue();
+    //   if (buttonText === 'Remove from Cart') {
+    //     await button.click();
+    //   }
+    // }
+
+    
     const count = await page.$eval('#cart-count', el => el.innerText);
     
     expect(count).toBe('0');
