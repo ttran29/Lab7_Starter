@@ -10,15 +10,10 @@ Charlotte Kim and Tommy Tran
 
 3) What is the difference between navigation and snapshot mode?
 
+   Navigation mode allows the user to record the webapge and examine it. You won't be able to analyze interactions, just performance overall. Snapshot mode analyzes the webpage in its current state. However, it cannot analyze JS performane or changes to the DOM tree.
+
 4) Name three things we could do to improve the CSE 110 shop site based on the Lighthouse results.
 
-
-
-
-
-
-
-
-
-
-
+- Compress images
+- Reduce unused JavaScript
+- Better HTML practices (<meta name="viewport"> with width)
